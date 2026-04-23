@@ -1,0 +1,17 @@
+Hydra v9.5 (c) 2023 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-04-23 12:49:08
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 10 login tries (l:1/p:10), ~3 tries per task
+[DATA] attacking ssh://10.10.1.129:22/
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "password" - 1 of 10 [child 0] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "123456" - 2 of 10 [child 1] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "admin" - 3 of 10 [child 2] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "password123" - 4 of 10 [child 3] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "letmein" - 5 of 10 [child 0] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "root" - 6 of 10 [child 1] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "toor" - 7 of 10 [child 2] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "kali" - 8 of 10 [child 3] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "qwerty" - 9 of 10 [child 0] (0/0)
+[ATTEMPT] target 10.10.1.129 - login "nvphuong" - pass "abc123" - 10 of 10 [child 1] (0/0)
+1 of 1 target completed, 0 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2026-04-23 12:49:18
