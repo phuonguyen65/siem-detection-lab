@@ -2,21 +2,21 @@
 
 
 
-![Elastic Stack](https://img.shields.io/badge/Elastic_Stack-8.19.14-005571?logo=elasticsearch)
+- ![Elastic Stack](https://img.shields.io/badge/Elastic_Stack-8.19.14-005571?logo=elasticsearch)
 
-![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-5_Techniques-red)
+- ![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-5_Techniques-red)
 
-![Platform](https://img.shields.io/badge/Platform-VMware-grey)
+- ![Platform](https://img.shields.io/badge/Platform-VMware-grey)
 
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+- ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 
 
 ## Overview
 
-A centralized SIEM lab built on Elastic Stack 8.x to detect, alert, and investigate 
+- A centralized SIEM lab built on Elastic Stack 8.x to detect, alert, and investigate 
 
-real-world attack scenarios mapped to MITRE ATT\&CK framework.
+- real-world attack scenarios mapped to MITRE ATT\&CK framework.
 
 
 
@@ -26,15 +26,15 @@ real-world attack scenarios mapped to MITRE ATT\&CK framework.
 
 
 
-| Component | OS | IP | Role |
+|   Component   |      OS      |      IP     |    Role     |
 
-|---|---|---|---|
+|---------------|--------------|-------------|-------------|
 
-| Kali Linux | Rolling 2024 | 10.10.1.130 | Attacker |
+| Kali Linux    | Rolling 2024 | 10.10.1.130 | Attacker    |
 
-| Ubuntu Target | 22.04 LTS | 10.10.1.129 | Victim |
+| Ubuntu Target | 22.04 LTS    | 10.10.1.129 | Victim      |
 
-| Elastic SIEM | 22.04 LTS | 10.10.1.128 | SIEM Server |
+| Elastic SIEM  | 22.04 LTS    | 10.10.1.128 | SIEM Server |
 
 
 
