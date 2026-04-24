@@ -60,63 +60,63 @@
 
 ![Alerts](./screenshots/03-alerts-overview.png)
 
-
+<br>
 
 ### Brute-Force Alert Detail
 
 ![Alert Detail](./screenshots/04-brute-force-alert-detail.png)
 
-
+<br>
 
 ### Rules Enabled
 
 ![Rules](./screenshots/02-rules-enabled.png)
 
-
+<br>
 
 ### Log Stream in Discover
 
 ![Logs](./screenshots/05-discover-logs.png)
 
-
+<br>
 
 ### Fleet Agents Healthy
 
 ![Fleet](./screenshots/01-fleet-agents-healthy.png)
 
-
+<br>
 
 ## Attack Simulation
 
-See [attack-simulation/playbook.md](./attack-simulation/playbook.md) 
+- See [attack-simulation/playbook.md](./attack-simulation/playbook.md) 
 
-for step-by-step attack commands and expected detection behavior.
+- for step-by-step attack commands and expected detection behavior.
 
 
 
 ## Importable Artifacts
 
-\- \*\*Detection Rules\*\*: `detection-rules/rule-0x.ndjson` — importable directly to Kibana
+- **Detection Rules**: `detection-rules/rule-0x.ndjson` — importable directly to Kibana
 
-\- \*\*Rule Documentation\*\*: `detection-rules/README.md`
+- **Rule Documentation**: `detection-rules/README.md`
 
+<br>
 
+## What I Learned
 
-\## What I Learned
+- How Elastic Agent ships structured logs vs raw syslog
 
-\- How Elastic Agent ships structured logs vs raw syslog
+- Difference between Threshold rules and Custom Query rules
 
-\- Difference between Threshold rules and Custom Query rules
+- MITRE ATT\&CK mapping — connecting real attack behavior to framework techniques
 
-\- MITRE ATT\&CK mapping — connecting real attack behavior to framework techniques
+- Importance of false positive tuning: SSH brute-force threshold needed adjustment
 
-\- Importance of false positive tuning: SSH brute-force threshold needed adjustment
+- Fleet Server architecture: how agents communicate through Fleet Server to Elasticsearch
 
-\- Fleet Server architecture: how agents communicate through Fleet Server to Elasticsearch
+<br>
 
-
-
-\## Challenges \& Solutions
+## Challenges \& Solutions
 
 
 
