@@ -22,7 +22,7 @@ real-world attack scenarios mapped to MITRE ATT\&CK framework.
 
 \## Lab Architecture
 
-!\[Topology](https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png?raw=true)
+!\[Topology](https://github.com/phuonguyen65/siem-detection-lab/blob/ad210bc35733412f3a6a5db4636cf24c0ffecc1e/architecture/lab-topology.png)
 
 
 
