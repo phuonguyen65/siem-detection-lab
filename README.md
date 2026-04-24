@@ -2,13 +2,10 @@
 
 
 
-!\[Elastic Stack](https://img.shields.io/badge/Elastic\_Stack-8.19.14-005571?logo=elasticsearch)
-
-!\[MITRE ATT\&CK](https://img.shields.io/badge/MITRE\_ATT%26CK-5\_Techniques-red)
-
-!\[Platform](https://img.shields.io/badge/Platform-VMware-grey)
-
-!\[Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Elastic Stack](https://img.shields.io/badge/Elastic_Stack-8.19.14-005571?logo=elasticsearch)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-5_Techniques-red)
+![Platform](https://img.shields.io/badge/Platform-VMware-grey)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 
 
