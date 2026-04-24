@@ -23,12 +23,6 @@
 ## Lab Architecture
 
 <div align="center">
-  <img src="https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png" width="600">
-  <p><i>Lab topology — 3 VM isolated network on VMware</i></p>
-</div>
-
-
-<div align="center">
 
 | Component      | OS           | IP           | Role        |
 |----------------|--------------|--------------|-------------|
@@ -38,69 +32,68 @@
 
 </div>
 
+<div align="center">
+  <img src="https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png" width="600">
+  <p><i>Lab topology — 3 VM isolated network on VMware</i></p>
+</div>
+
 ## Detection Rules (MITRE ATT\&CK Mapped)
 
+<div align="center">
 
+| Rule                            | Technique  | Tactic               | Severity |
+|---------------------------------|------------|----------------------|----------|
+| SSH Brute-Force Detection       | T1110.001  | Credential Access    | High     |
+| Successful SSH Login Monitor    | T1078      | Initial Access       | Low      |
+| Suspicious Privilege Escalation | T1548      | Privilege Escalation | Medium   |
+| New User Account Created        | T1136.001  | Persistence          | High     |
+| Port Scan Detection             | T1046      | Discovery            | Medium   |
 
-| Rule | Technique | Tactic | Severity |
+</div>
 
-|---|---|---|---|
-
-| SSH Brute-Force Detection | T1110.001 | Credential Access | High |
-
-| Successful SSH Login Monitor | T1078 | Initial Access | Low |
-
-| Suspicious Privilege Escalation | T1548 | Privilege Escalation | Medium |
-
-| New User Account Created | T1136.001 | Persistence | High |
-
-| Port Scan Detection | T1046 | Discovery | Medium |
-
-
-
-\## Screenshots
+## Screenshots
 
 
 
-\### Alerts Overview
+### Alerts Overview
 
-!\[Alerts](./screenshots/03-alerts-overview.png)
-
-
-
-\### Brute-Force Alert Detail
-
-!\[Alert Detail](./screenshots/04-brute-force-alert-detail.png)
+![Alerts](./screenshots/03-alerts-overview.png)
 
 
 
-\### Rules Enabled
+### Brute-Force Alert Detail
 
-!\[Rules](./screenshots/02-rules-enabled.png)
-
-
-
-\### Log Stream in Discover
-
-!\[Logs](./screenshots/05-discover-logs.png)
+![Alert Detail](./screenshots/04-brute-force-alert-detail.png)
 
 
 
-\### Fleet Agents Healthy
+### Rules Enabled
 
-!\[Fleet](./screenshots/01-fleet-agents-healthy.png)
+![Rules](./screenshots/02-rules-enabled.png)
 
 
 
-\## Attack Simulation
+### Log Stream in Discover
 
-See \[attack-simulation/playbook.md](./attack-simulation/playbook.md) 
+![Logs](./screenshots/05-discover-logs.png)
+
+
+
+### Fleet Agents Healthy
+
+![Fleet](./screenshots/01-fleet-agents-healthy.png)
+
+
+
+## Attack Simulation
+
+See [attack-simulation/playbook.md](./attack-simulation/playbook.md) 
 
 for step-by-step attack commands and expected detection behavior.
 
 
 
-\## Importable Artifacts
+## Importable Artifacts
 
 \- \*\*Detection Rules\*\*: `detection-rules/rule-0x.ndjson` — importable directly to Kibana
 
