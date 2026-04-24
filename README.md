@@ -23,6 +23,11 @@
 ## Lab Architecture
 
 <div align="center">
+  <img src="https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png" width="600">
+  <p><i>Lab topology — 3 VM isolated network on VMware</i></p>
+</div>
+
+<div align="center">
 
 | Component      | OS           | IP           | Role        |
 |----------------|--------------|--------------|-------------|
@@ -32,10 +37,6 @@
 
 </div>
 
-<div align="center">
-  <img src="https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png" width="600">
-  <p><i>Lab topology — 3 VM isolated network on VMware</i></p>
-</div>
 
 ## Detection Rules (MITRE ATT\&CK Mapped)
 
