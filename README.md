@@ -26,15 +26,11 @@
 
 
 
-|   Component   |      OS      |      IP     |    Role     |
-
-|---------------|--------------|-------------|-------------|
-
-| Kali Linux    | Rolling 2024 | 10.10.1.130 | Attacker    |
-
-| Ubuntu Target | 22.04 LTS    | 10.10.1.129 | Victim      |
-
-| Elastic SIEM  | 22.04 LTS    | 10.10.1.128 | SIEM Server |
+| Component      | OS           | IP           | Role        |
+|----------------|--------------|--------------|-------------|
+| Kali Linux     | Rolling 2024 | 10.10.1.130  | Attacker    |
+| Ubuntu Target  | 22.04 LTS    | 10.10.1.129  | Victim      |
+| Elastic SIEM   | 22.04 LTS    | 10.10.1.128  | SIEM Server |
 
 
 
