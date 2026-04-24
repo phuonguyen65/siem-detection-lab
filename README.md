@@ -1,4 +1,4 @@
-\# 🔍 SIEM Detection Lab — Elastic Stack 8.x
+## 🔍 SIEM Detection Lab — Elastic Stack 8.x
 
 
 
@@ -12,7 +12,7 @@
 
 
 
-\## Overview
+## Overview
 
 A centralized SIEM lab built on Elastic Stack 8.x to detect, alert, and investigate 
 
