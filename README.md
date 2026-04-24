@@ -28,6 +28,7 @@
 </div>
 
 
+<div align="center">
 
 | Component      | OS           | IP           | Role        |
 |----------------|--------------|--------------|-------------|
@@ -35,9 +36,9 @@
 | Ubuntu Target  | 22.04 LTS    | 10.10.1.129  | Victim      |
 | Elastic SIEM   | 22.04 LTS    | 10.10.1.128  | SIEM Server |
 
+</div>
 
-
-\## Detection Rules (MITRE ATT\&CK Mapped)
+## Detection Rules (MITRE ATT\&CK Mapped)
 
 
 
