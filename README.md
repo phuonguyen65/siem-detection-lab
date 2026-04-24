@@ -22,7 +22,10 @@
 
 ## Lab Architecture
 
-![Topology](https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png)
+<div align="center">
+  <img src="https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png" width="600">
+  <p><i>Lab topology — 3 VM isolated network on VMware</i></p>
+</div>
 
 
 
