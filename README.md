@@ -3,8 +3,11 @@
 
 
 ![Elastic Stack](https://img.shields.io/badge/Elastic_Stack-8.19.14-005571?logo=elasticsearch)
+
 ![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-5_Techniques-red)
+
 ![Platform](https://img.shields.io/badge/Platform-VMware-grey)
+
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 
@@ -19,7 +22,7 @@ real-world attack scenarios mapped to MITRE ATT\&CK framework.
 
 \## Lab Architecture
 
-!\[Topology](https://github.com/phuonguyen65/siem-detection-lab/blob/main/architecture/lab-topology.png?raw=true)
+!\[Topology](architecture/lab-topology.png)
 
 
 
