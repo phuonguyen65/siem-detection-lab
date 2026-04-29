@@ -10,11 +10,11 @@
 
 ## 2. Detection Rule (Kibana)
 
-**Rule type:** Threshold
+* **Rule type:** Threshold
 
-**Index:** `logs-system.syslog-\\\*`
+* **Index:** `logs-system.syslog-\\\*`
 
-### Query:
+* ### Query:
 
 ```kql
 
@@ -22,15 +22,15 @@ event.dataset: "system.syslog" AND message: ("UFW" OR "BLOCK" OR "connection")
 
 ```
 
-### Threshold:
+* ### Threshold:
 
-* **20 events within 1 minute**
+** **20 events within 1 minute**
 
-* **Group by:** None
+** **Group by:** None
 
-**Severity:** Medium
+* **Severity:** Medium
 
-**Risk Score:** 50
+* **Risk Score:** 50
 
 ---
 
@@ -70,12 +70,11 @@ nmap -sS -T4 -p- 10.10.1.129
 
 * `-p-`: scan all ports
 
----
-
 </br>
 
 ![Nmap](./screenshots/01-nmap.png)
 
+---
 
 ## 5. Log Evidence
 
