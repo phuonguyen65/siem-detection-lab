@@ -112,9 +112,6 @@ http://10.10.1.129/DVWA/hackable/uploads/shell.php?cmd=ls
 
 ## 📄 Logs on Victim
 
-```text
-10.10.1.130 - - [29/Apr/2026:10:59:49 +0700] "GET /DVWA/hackable/uploads/shell.php?cmd=id HTTP/1.1" 200 258 "-" "Mozilla/5.0 ..."
-```
 
 ![LOG](./screenshots/07-log_victim.png)
 
