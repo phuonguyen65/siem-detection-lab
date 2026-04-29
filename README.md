@@ -1,14 +1,14 @@
 # 🔐 SOC Detection Lab - Elastic Stack 8.x
 
-!\[Elastic Stack](https://img.shields.io/badge/Elastic\_Stack-8.19.14-005571?logo=elasticsearch)
+![Elastic Stack](https://img.shields.io/badge/Elastic_Stack-8.19.14-005571?logo=elasticsearch)
 
-!\[MITRE ATT\&CK](https://img.shields.io/badge/MITRE\_ATT%26CK-4\_Techniques-red)
+![MITRE ATT&CK](https://img.shields.io/badge/MITRE_ATT%26CK-4_Techniques-red)
 
-!\[Platform](https://img.shields.io/badge/Platform-VMware-grey)
+![Platform](https://img.shields.io/badge/Platform-VMware-grey)
 
-!\[Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
-!\[Elastic](./screenshots/01-elastic.png)
+![Elastic](./screenshots/01-elastic.png)
 
 ## 📌 Overview
 
@@ -42,7 +42,7 @@ Attacker (Kali) ───────▶ Victim (DVWA + Apache)
                             Kibana
 ```
 
-!\[Topology](./screenshots/02-lab-topology.png)
+![Topology](./screenshots/02-lab-topology.png)
 
 ---
 
@@ -182,7 +182,9 @@ event.dataset: "apache.access" AND message: ("cmd=" OR ".php?")
 
 ## Rules
 
-!\[Rules](./screenshots/03-rules.png)
+![Rules](./screenshots/03-rules.png)
+
+---
 
 ## 🧠 Detection Strategy
 
@@ -198,7 +200,9 @@ event.dataset: "apache.access" AND message: ("cmd=" OR ".php?")
 
 ## Alerts
 
-!\[Alerts](./screenshots/04-alerts.png)
+![Alerts](./screenshots/04-alerts.png)
+
+---
 
 ### ⚠️ Important Notes
 
