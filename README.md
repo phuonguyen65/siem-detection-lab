@@ -111,7 +111,7 @@ event.dataset: "system.auth" AND message: "Failed password"
 
 ---
 
-### 🔴 Attack 02 – Port Scanning
+### 🔴 [Attack 02 – Port Scan](./attacks/02-port-scan/attack02_port_scan.md)
 
 **Tool:** Nmap
 
@@ -133,7 +133,7 @@ event.dataset: "system.syslog" AND message: ("nmap" OR "scan")
 
 ---
 
-### 🔴 Attack 03 – SQL Injection (DVWA)
+### 🔴 🔴 [Attack 03 – SQL Injection](./attacks/03-sqli/attack03_sqli.md)
 
 **Example Payload:**
 
@@ -156,7 +156,7 @@ message: ("UNION SELECT" OR "information_schema" OR "OR 1=1")
 
 ---
 
-### 🔴 Attack 04 – Web Shell Upload & Command Execution
+### 🔴 [Attack 04 – Web Shell Upload & Command Execution](./attacks/04-web-shell/attack04_webshell.md)
 
 **Step 1: Upload shell**
 
