@@ -28,12 +28,11 @@ event.dataset: "system.syslog" AND message: ("UFW" OR "BLOCK" OR "connection")
 
 * **Risk Score:** 50
 
----
-
 </br>
 
 ![Detection Rule](./screenshots/05-rule_port_scan.png)
 
+---
 
 ## 3. MITRE ATT&CK
 
