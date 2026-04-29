@@ -41,7 +41,7 @@ Attacker (Kali) ───────▶ Victim (DVWA + Apache)
                               ▼
                             Kibana
 ```
-
+<br>
 ![Topology](./screenshots/02-lab-topology.png)
 
 ---
