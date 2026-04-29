@@ -1,156 +1,251 @@
-\# 🔍 SIEM Detection Lab — Elastic Stack 8.x
-
-
+# 🔐 SOC Detection Lab - Elastic Stack 8.x
 
 !\[Elastic Stack](https://img.shields.io/badge/Elastic\_Stack-8.19.14-005571?logo=elasticsearch)
 
-!\[MITRE ATT\&CK](https://img.shields.io/badge/MITRE\_ATT%26CK-5\_Techniques-red)
+!\[MITRE ATT\&CK](https://img.shields.io/badge/MITRE\_ATT%26CK-4\_Techniques-red)
 
 !\[Platform](https://img.shields.io/badge/Platform-VMware-grey)
 
 !\[Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
+!\[Elastic](./screenshots/01-elastic.png)
 
+## 📌 Overview
 
-\## Overview
+This project simulates a **Security Operations Center (SOC)** environment using:
 
-A centralized SIEM lab built on Elastic Stack 8.x to detect, alert, and investigate 
+* **Kali Linux** as the attacker
+* **DVWA (Damn Vulnerable Web Application)** as the victim
+* **Elastic Stack (ELK + Elastic Agent/Filebeat)** for log collection, analysis, and detection
 
-real-world attack scenarios mapped to MITRE ATT\&CK framework.
+The goal is to:
 
+* Generate real attack traffic
+* Collect logs from the victim machine
+* Build **detection rules in Kibana**
+* Validate alerts in a SOC-like workflow
 
+---
 
-\## Lab Architecture
+## 🧱 Architecture
 
-!\[Topology](./architecture/lab-topology.png)
+```
+Attacker (Kali) ───────▶ Victim (DVWA + Apache)
+                              │
+                              ▼
+                        Elastic Agent
+                              │
+                              ▼
+                        Elasticsearch
+                              │
+                              ▼
+                            Kibana
+```
 
+!\[Topology](./screenshots/02-lab-topology.png)
 
+---
 
-| Component | OS | IP | Role |
+## ⚙️ Environment Setup
 
-|---|---|---|---|
+### 1. Victim Machine
 
-| Kali Linux | Rolling 2024 | 10.10.1.130 | Attacker |
+* OS: Ubuntu 22.04
+* Services:
 
-| Ubuntu Target | 22.04 LTS | 10.10.1.129 | Victim |
+  * Apache2
+  * MySQL
+  * DVWA
 
-| Elastic SIEM | 22.04 LTS | 10.10.1.128 | SIEM Server |
+### 2. Attacker Machine
 
+* Kali Linux
+* Tools:
 
+  * `hydra`
+  * `nmap`
+  * browser (manual attack)
 
-\## Detection Rules (MITRE ATT\&CK Mapped)
+### 3. SIEM
 
+* Elastic Stack 8.x
+* Elastic Agent
+* Fleet Server
 
+---
 
-| Rule | Technique | Tactic | Severity |
+## 📂 Log Sources
 
-|---|---|---|---|
+| Source            | Path                          |
+| ----------------- | ----------------------------- |
+| Apache access log | `/var/log/apache2/access.log` |
+| Apache error log  | `/var/log/apache2/error.log`  |
+| Auth log          | `/var/log/auth.log`           |
 
-| SSH Brute-Force Detection | T1110.001 | Credential Access | High |
+---
 
-| Successful SSH Login Monitor | T1078 | Initial Access | Low |
+## 🚨 Attack Scenarios
 
-| Suspicious Privilege Escalation | T1548 | Privilege Escalation | Medium |
+### 🔴 Attack 01 – SSH Brute Force
 
-| New User Account Created | T1136.001 | Persistence | High |
+**Tool:** Hydra
+**Target:** SSH service
 
-| Port Scan Detection | T1046 | Discovery | Medium |
+**Command:**
 
+```bash
+hydra -l root -P rockyou.txt ssh://10.10.1.129
+```
 
+**Log Source:**
 
-\## Screenshots
+* `/var/log/auth.log`
 
+**Detection Rule:**
 
+```kql
+event.dataset: "system.auth" AND message: "Failed password"
+```
 
-\### Alerts Overview
+---
 
-!\[Alerts](./screenshots/03-alerts-overview.png)
+### 🔴 Attack 02 – Port Scanning
 
+**Tool:** Nmap
 
+**Command:**
 
-\### Brute-Force Alert Detail
+```bash
+nmap -sS -p- 10.10.1.129
+```
 
-!\[Alert Detail](./screenshots/04-brute-force-alert-detail.png)
+**Detection Logic:**
 
+* High number of connection attempts
 
+**Detection Rule:**
 
-\### Rules Enabled
+```kql
+event.dataset: "system.syslog" AND message: ("nmap" OR "scan")
+```
 
-!\[Rules](./screenshots/02-rules-enabled.png)
+---
 
+### 🔴 Attack 03 – SQL Injection (DVWA)
 
+**Example Payload:**
 
-\### Log Stream in Discover
+```
+1' UNION SELECT user,password FROM users #
+```
 
-!\[Logs](./screenshots/05-discover-logs.png)
+**Log Example:**
 
+```
+GET /DVWA/vulnerabilities/sqli/?id=1%27+UNION+SELECT...
+```
 
+**Detection Rule:**
 
-\### Fleet Agents Healthy
+```kql
+event.dataset: "apache.access" AND 
+message: ("UNION SELECT" OR "information_schema" OR "OR 1=1")
+```
 
-!\[Fleet](./screenshots/01-fleet-agents-healthy.png)
+---
 
+### 🔴 Attack 04 – Web Shell Upload & Command Execution
 
+**Step 1: Upload shell**
 
-\## Attack Simulation
+* DVWA File Upload
 
-See \[attack-simulation/playbook.md](./attack-simulation/playbook.md) 
+**Step 2: Execute**
 
-for step-by-step attack commands and expected detection behavior.
+```
+shell.php?cmd=id
+```
 
+**Log Example:**
 
+```
+GET /DVWA/hackable/uploads/shell.php?cmd=id
+```
 
-\## Importable Artifacts
+**Detection Rule:**
 
-\- \*\*Detection Rules\*\*: `detection-rules/rule-0x.ndjson` — importable directly to Kibana
+```kql
+event.dataset: "apache.access" AND message: ("cmd=" OR ".php?")
+```
 
-\- \*\*Rule Documentation\*\*: `detection-rules/README.md`
+---
 
+## Rules
 
+!\[Rules](./screenshots/03-rules.png)
 
-\## What I Learned
+## 🧠 Detection Strategy
 
-\- How Elastic Agent ships structured logs vs raw syslog
+### Key Fields Used
 
-\- Difference between Threshold rules and Custom Query rules
+| Field           | Purpose                     |
+| --------------- | --------------------------- |
+| `message`       | Main searchable log content |
+| `event.dataset` | Identify log type           |
+| `source.ip`     | Attacker IP                 |
 
-\- MITRE ATT\&CK mapping — connecting real attack behavior to framework techniques
+---
 
-\- Importance of false positive tuning: SSH brute-force threshold needed adjustment
+## Alerts
 
-\- Fleet Server architecture: how agents communicate through Fleet Server to Elasticsearch
+!\[Alerts](./screenshots/04-alerts.png)
 
+### ⚠️ Important Notes
 
+* `event.original` **cannot be used in detection rules**
+* Logs must be **indexed fields (e.g. message)**
+* Alerts may have **delay (1–2 minutes)**
 
-\## Challenges \& Solutions
+---
 
+## 📊 Validation
 
+Each attack was validated by:
 
-| Challenge | Solution |
+1. Generating attack traffic
+2. Confirming logs on victim
+3. Verifying logs in Kibana
+4. Triggering detection alerts
 
-|---|---|
+---
 
-| Elasticsearch failed to start | Conflicting `cluster.initial\_master\_nodes` with `single-node` mode — commented out the setting |
+## 🧩 Challenges & Lessons Learned
 
-| Kibana not connecting to Elasticsearch | Output was using `http://localhost:9200` instead of `https://10.10.1.128:9200` |
+* Apache logs may be parsed incorrectly if using wrong integration
+* `event.original` is not searchable → must rely on `message`
+* Filebeat must be **running continuously**
+* Detection rules require tuning (avoid false positives)
 
-| Elastic Agent not shipping logs | Fleet output URL was wrong — fixed to `https://10.10.1.128:9200` with `ssl.verification\_mode: none` |
+---
 
-| Port scan rule not triggering | Ubuntu syslog doesn't log Nmap directly — requires Network Packet Capture integration |
+## 🚀 Conclusion
 
+This project demonstrates:
 
+* End-to-end SOC workflow
+* Realistic attack simulation
+* Practical detection engineering in Elastic
 
-\## Tech Stack
+It serves as a **foundation for SOC Analyst (L1–L2)** skills.
 
-\- \*\*Elasticsearch 8.19.14\*\* — log storage and search
+---
 
-\- \*\*Kibana 8.19.14\*\* — visualization and SIEM interface
+## 📌 Future Improvements
 
-\- \*\*Elastic Agent 8.19.14\*\* — log collection on endpoints
+* Add MITRE ATT&CK mapping
+* Build dashboards
+* Add more attack scenarios (XSS, LFI, RCE)
+* Implement alert correlation
 
-\- \*\*Fleet Server\*\* — centralized agent management
-
-\- \*\*Hydra\*\* — SSH brute-force simulation
-
-\- \*\*Nmap\*\* — port scanning simulation
+---
 
