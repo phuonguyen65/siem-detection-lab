@@ -143,6 +143,7 @@ Key fields:
 * ✔ Kibana detected and generated alerts
 
 ![ALERT](./screenshots/09-alert.png)
+</br>
 ![ALERT1](./screenshots/10-alert_detail.png)
 
 ---
