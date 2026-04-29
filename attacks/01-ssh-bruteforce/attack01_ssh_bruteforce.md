@@ -4,6 +4,8 @@
 
 Simulate a dictionary-based SSH brute-force attack using Hydra against an Ubuntu target machine. This technique is commonly used by attackers to gain initial access by guessing credentials.
 
+---
+
 ## 2. Detection Rule
 
 * **Rule type:** Threshold
@@ -26,6 +28,7 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 
 ![Detection Rule](./screenshots/05-rule_ssh_bruce_force.png)
 
+---
 
 ## 3. MITRE ATT\&CK
 
@@ -35,6 +38,7 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 | Technique | T1110 — Brute Force           |
 | Sub-tech  | T1110.001 — Password Guessing |
 
+---
 
 ## 4. Attack Execution
 
@@ -71,6 +75,7 @@ hydra -l nvphuong -P /tmp/rockyou-mini.txt ssh://10.10.1.129 -t 4 -V -I
 
 ![Hydra](./screenshots/01-hydra.png)
 
+---
 
 ## 5. Log Evidence
 
@@ -78,6 +83,7 @@ hydra -l nvphuong -P /tmp/rockyou-mini.txt ssh://10.10.1.129 -t 4 -V -I
 
 ![Auth Log](./screenshots/02-authlog.png)
 
+---
 
 ## 6. Alert Kibana
 
@@ -87,6 +93,7 @@ hydra -l nvphuong -P /tmp/rockyou-mini.txt ssh://10.10.1.129 -t 4 -V -I
 
 ![Alert1](./screenshots/04-alert_detail.png)
 
+---
 
 ## 7. Analysis
 
@@ -97,6 +104,3 @@ hydra -l nvphuong -P /tmp/rockyou-mini.txt ssh://10.10.1.129 -t 4 -V -I
 * Threshold rule effectively reduces noise
 
 * Low false positive probability
-
-
-
