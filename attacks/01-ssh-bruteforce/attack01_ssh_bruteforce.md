@@ -1,24 +1,14 @@
-\# 🔴 ATTACK 01 — SSH BRUTE FORCE (T1110.001)
+# 🔥 ATTACK 01 — SSH BRUTE FORCE (T1110.001)
 
-
-
-\## 1. Description
-
-
+## 1. Description
 
 Simulate a dictionary-based SSH brute-force attack using Hydra against an Ubuntu target machine. This technique is commonly used by attackers to gain initial access by guessing credentials.
 
+## 2. Detection Rule
 
+**Rule type:** Threshold
 
-\## 2. Detection Rule
-
-
-
-\*\*Rule type:\*\* Threshold
-
-\*\*Index:\*\* logs-system.auth-\*
-
-
+**Index:** logs-system.auth-*
 
 ```kql
 
@@ -26,23 +16,16 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 
 ```
 
+**Threshold:** ≥ 5 events from same source.ip in 1 minute
+
+**Severity:** High
+
+**Risk Score:** 73
+
+![Detection Rule](./screenshots/05-rule_ssh_bruce_force.png)
 
 
-\*\*Threshold:\*\* ≥ 5 events from same source.ip in 1 minute
-
-\*\*Severity:\*\* High
-
-\*\*Risk Score:\*\* 73
-
-
-
-!\[Detection Rule](./screenshots/05-rule\_ssh\_bruce\_force.png)
-
-
-
-\## 3. MITRE ATT\&CK
-
-
+## 3. MITRE ATT\&CK
 
 | Field     | Value                         |
 | --------- | ----------------------------- |
@@ -51,19 +34,13 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 | Sub-tech  | T1110.001 — Password Guessing |
 
 
+## 4. Attack Execution
 
+**Attacker:** Kali Linux (10.10.1.130)
 
-\## 4. Attack Execution
+**Target:** Ubuntu 22.04 (10.10.1.129)
 
-
-
-\*\*Attacker:\*\* Kali Linux (10.10.1.130)
-
-\*\*Target:\*\* Ubuntu 22.04 (10.10.1.129)
-
-\*\*Tool:\*\* Hydra
-
-
+**Tool:** Hydra
 
 ```bash
 
@@ -79,67 +56,44 @@ hydra -l nvphuong -P /tmp/rockyou-mini.txt ssh://10.10.1.129 -t 4 -V -I
 
 ```
 
-\-l → username
+* -l → username
 
-\-P → password list
+* -P → password list
 
-\-t 4 → threads
+* -t 4 → threads
 
-\-V → verbose
+* -V → verbose
 
-\-I → ignore restore
+* -I → ignore restore
 
-
-
-!\[Hydra](./screenshots/01-hydra.png)
+![Hydra](./screenshots/01-hydra.png)
 
 
+## 5. Log Evidence
 
-\## 5. Log Evidence
+**Location:** `/var/log/auth.log`
 
-
-
-\*\*Location:\*\* `/var/log/auth.log`
-
+![Auth Log](./screenshots/02-authlog.png)
 
 
-Example logs:
+## 6. Alert Kibana
+
+![Alert](./screenshots/03-alert.png)
+
+</br>
+
+![Alert1](./screenshots/04-alert_detail.png)
 
 
+## 7. Analysis
 
-```
+* Multiple failed login attempts detected from a single IP
 
-Failed password for nvphuong from 10.10.1.130 port 54321 ssh2
+* Pattern indicates automated attack
 
-```
+* Threshold rule effectively reduces noise
 
-
-
-!\[Auth Log](./screenshots/02-authlog.png)
-
-
-
-\## 6. Alert Kibana
-
-
-
-!\[Alert](./screenshots/03-alert.png)
-
-!\[Alert1](./screenshots/04-alert\_detail.png)
-
-
-
-\## 7. Analysis
-
-
-
-\* Multiple failed login attempts detected from a single IP
-
-\* Pattern indicates automated attack
-
-\* Threshold rule effectively reduces noise
-
-\* Low false positive probability
+* Low false positive probability
 
 
 
