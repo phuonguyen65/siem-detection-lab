@@ -88,7 +88,7 @@ Attacker (Kali) ───────▶ Victim (DVWA + Apache)
 
 ## 🚨 Attack Scenarios
 
-### 🔴 [Attack 01 – SSH Brute Force](./attacks/attack01_ssh_bruteforce.md)
+### 🔴 [Attack 01 – SSH Brute Force](./attacks/01-ssh-bruteforce/attack01_ssh_bruteforce.md)
 
 **Tool:** Hydra
 **Target:** SSH service
