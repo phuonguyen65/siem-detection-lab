@@ -6,9 +6,9 @@ Simulate a dictionary-based SSH brute-force attack using Hydra against an Ubuntu
 
 ## 2. Detection Rule
 
-**Rule type:** Threshold
+* **Rule type:** Threshold
 
-**Index:** logs-system.auth-*
+* **Index:** logs-system.auth-*
 
 ```kql
 
@@ -16,11 +16,13 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 
 ```
 
-**Threshold:** ≥ 5 events from same source.ip in 1 minute
+* **Threshold:** ≥ 5 events from same source.ip in 1 minute
 
-**Severity:** High
+* **Severity:** High
 
-**Risk Score:** 73
+* **Risk Score:** 73
+
+</br>
 
 ![Detection Rule](./screenshots/05-rule_ssh_bruce_force.png)
 
@@ -36,18 +38,17 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 
 ## 4. Attack Execution
 
-**Attacker:** Kali Linux (10.10.1.130)
+* **Attacker:** Kali Linux (10.10.1.130)
 
-**Target:** Ubuntu 22.04 (10.10.1.129)
+* **Target:** Ubuntu 22.04 (10.10.1.129)
 
-**Tool:** Hydra
+* **Tool:** Hydra
 
 ```bash
 
 \# Prepare wordlist
 
 head -1000 /usr/share/wordlists/rockyou.txt > /tmp/rockyou-mini.txt
-
 
 
 \# Run brute-force attack
@@ -65,6 +66,8 @@ hydra -l nvphuong -P /tmp/rockyou-mini.txt ssh://10.10.1.129 -t 4 -V -I
 * -V → verbose
 
 * -I → ignore restore
+
+</br>
 
 ![Hydra](./screenshots/01-hydra.png)
 
