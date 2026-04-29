@@ -45,15 +45,10 @@ event.dataset: "system.auth" AND event.outcome: "failure"
 
 
 | Field     | Value                         |
-
 | --------- | ----------------------------- |
-
 | Tactic    | Credential Access             |
-
 | Technique | T1110 — Brute Force           |
-
 | Sub-tech  | T1110.001 — Password Guessing |
-
 
 
 
