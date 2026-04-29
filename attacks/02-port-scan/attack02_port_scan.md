@@ -22,11 +22,7 @@ event.dataset: "system.syslog" AND message: ("UFW" OR "BLOCK" OR "connection")
 
 ```
 
-* ### Threshold:
-
-** **20 events within 1 minute**
-
-** **Group by:** None
+* ### Threshold: **20 events within 1 minute**, **Group by:** None
 
 * **Severity:** Medium
 
