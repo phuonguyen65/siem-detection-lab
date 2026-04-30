@@ -133,7 +133,7 @@ event.dataset: "system.syslog" AND message: ("nmap" OR "scan")
 
 ---
 
-### 🔴 🔴 [Attack 03 – SQL Injection](./attacks/03-sqli/attack03_sqli.md)
+### 🔴 [Attack 03 – SQL Injection](./attacks/03-sqli/attack03_sqli.md)
 
 **Example Payload:**
 
