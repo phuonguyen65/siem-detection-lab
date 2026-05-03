@@ -88,7 +88,7 @@ Attacker (Kali) ───────▶ Victim (DVWA + Apache)
 
 ## 🚨 Attack Scenarios
 
-### 🔴 [Attack 01 – SSH Brute Force](./attacks/01-ssh-bruteforce/attack01_ssh_bruteforce.md)
+### 🔴 Attack 01 – SSH Brute Force
 
 **Tool:** Hydra
 **Target:** SSH service
@@ -109,9 +109,11 @@ hydra -l root -P rockyou.txt ssh://10.10.1.129
 event.dataset: "system.auth" AND message: "Failed password"
 ```
 
+→ [Full walkthrough with evidence](./attacks/01-ssh-bruteforce/attack01_ssh_bruteforce.md)
+
 ---
 
-### 🔴 [Attack 02 – Port Scan](./attacks/02-port-scan/attack02_port_scan.md)
+### 🔴 Attack 02 – Port Scan
 
 **Tool:** Nmap
 
@@ -131,9 +133,11 @@ nmap -sS -p- 10.10.1.129
 event.dataset: "system.syslog" AND message: ("nmap" OR "scan")
 ```
 
+→ [Full walkthrough with evidence](./attacks/02-port-scan/attack02_port_scan.md)
+
 ---
 
-### 🔴 [Attack 03 – SQL Injection](./attacks/03-sqli/attack03_sqli.md)
+### 🔴 Attack 03 – SQL Injection
 
 **Example Payload:**
 
@@ -154,9 +158,11 @@ event.dataset: "apache.access" AND
 message: ("UNION SELECT" OR "information_schema" OR "OR 1=1")
 ```
 
+→ [Full walkthrough with evidence](./attacks/03-sqli/attack03_sqli.md)
+
 ---
 
-### 🔴 [Attack 04 – Web Shell Upload & Command Execution](./attacks/04-web-shell/attack04_webshell.md)
+### 🔴 Attack 04 – Web Shell Upload & Command Execution
 
 **Step 1: Upload shell**
 
@@ -179,6 +185,8 @@ GET /DVWA/hackable/uploads/shell.php?cmd=id
 ```kql
 event.dataset: "apache.access" AND message: ("cmd=" OR ".php?")
 ```
+
+→ [Full walkthrough with evidence](./attacks/04-web-shell/attack04_webshell.md)
 
 ---
 
