@@ -85,7 +85,31 @@ Attacker (Kali) ───────▶ Victim (DVWA + Apache)
 
 ## 🚨 Attack Scenarios
 
-### 🔴 Attack 01 – SSH Brute Force
+### 🔴 Attack 01 – Port Scan
+
+**Tool:** Nmap
+
+**Command:**
+
+```bash
+nmap -sS -p- 10.10.1.129
+```
+
+**Detection Logic:**
+
+* High number of connection attempts
+
+**Detection Rule:**
+
+```kql
+event.dataset: "system.syslog" AND message: ("nmap" OR "scan")
+```
+
+→ [Full walkthrough with evidence](./attacks/02-port-scan/attack02_port_scan.md)
+
+---
+
+### 🔴 Attack 02 – SSH Brute Force
 
 **Tool:** Hydra
 **Target:** SSH service
@@ -107,30 +131,6 @@ event.dataset: "system.auth" AND message: "Failed password"
 ```
 
 → [Full walkthrough with evidence](./attacks/01-ssh-bruteforce/attack01_ssh_bruteforce.md)
-
----
-
-### 🔴 Attack 02 – Port Scan
-
-**Tool:** Nmap
-
-**Command:**
-
-```bash
-nmap -sS -p- 10.10.1.129
-```
-
-**Detection Logic:**
-
-* High number of connection attempts
-
-**Detection Rule:**
-
-```kql
-event.dataset: "system.syslog" AND message: ("nmap" OR "scan")
-```
-
-→ [Full walkthrough with evidence](./attacks/02-port-scan/attack02_port_scan.md)
 
 ---
 
